@@ -2,20 +2,17 @@ import React, { useState, useEffect } from "react"
 import * as execute from "../contract/execute"
 import { useConnectedWallet } from "@terra-money/wallet-provider"
 import LoadingIndicator from "../components/LoadingIndicator"
+import * as query from "../contract/query"
 
 const Play = () => {
   const connectedWallet = useConnectedWallet()
-  // Configure this as you want, I like shorter games
   const playTime = 60
 
   const [time, setTime] = useState(playTime)
-  // const [gameOver, setGameOver] = useState(false)
-  // We use this to track where the target is on the screen
   const [targetPosition, setTargetPosition] = useState({ top: "23%", left: "43%", height: "60px" })
   const [loading, setLoading] = useState(false)
   const [score, setScore] = useState(0)
 
-  // Every second we're going to lower the value of time.
   useEffect(() => {
     const unsubscribe = setInterval(() => {
       setTime((time) => (time > 0 ? time - 1 : 0))
@@ -26,10 +23,33 @@ const Play = () => {
   useEffect(() => {
     if (time === 0) {
       setTargetPosition({ display: "none" })
-      // Show alert to let user know it's game over
-      alert(`Game Over! Your score is ${score}. Please confirm transaction to submit score.`)
-      // setGameOver(true)
-      submitScore()
+
+      const fetchScores = async () => {
+        if (connectedWallet && connectedWallet.network.name === "testnet") {
+          return (await query.getScores(connectedWallet)).scores
+        }
+      }
+
+      fetchScores().then((scores) => {
+        let hiScore = 0
+        scores.map((score, index) => {
+          if (score[0] === connectedWallet.walletAddress) {
+            return (hiScore = score[1])
+          }
+          return (hiScore = 0)
+        })
+
+        if (hiScore > score) {
+          alert(`Game Over! Your score is ${score}. This doesn't beat your hi-score of ${hiScore}.`)
+          window.location.href = "/leaderboard"
+        } else {
+          // Show alert to let user know it's game over
+          alert(`Game Over! Your score is ${score}. A new hi-score. Please confirm transaction to submit score.`)
+          // setGameOver(true)
+
+          submitScore()
+        }
+      })
     }
   }, [time])
 
@@ -38,7 +58,6 @@ const Play = () => {
       setLoading(true)
       const tx = await execute.setScore(connectedWallet, score)
       console.log(tx)
-      // Once the transaction is confirmed, we let the user know and navigate to the leaderboard
       alert("Score submitted!")
       setLoading(false)
       window.location.href = "/leaderboard"
@@ -46,13 +65,11 @@ const Play = () => {
   }
 
   const handleClick = () => {
-    // OGs will know this :)
     let audio = new Audio("/crow-1.wav")
 
-    // Don't let it get too loud!
-    audio.volume = 0.4
+    audio.volume = 0.6
     audio.play()
-    console.log("height", targetPosition.height)
+
     if (targetPosition.height === "30px") {
       setScore((score) => score + 3)
     } else if (targetPosition.height === "45px") {
@@ -73,6 +90,7 @@ const Play = () => {
     <div className="score-board-container">
       <div className="play-container">
         <span>Score: {score}</span>
+        {/* <span>Hi-Score: {hiscore[1].toString().padStart(2, "0")}</span> */}
         <span>Stone 'em!</span>
         <span>Time left: {time} s</span>
       </div>

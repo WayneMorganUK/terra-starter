@@ -1,6 +1,7 @@
 import "./App.css"
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider"
 import Menu from "./components/Menu"
+import WalletAddress from "./components/WalletAddress"
 
 function App() {
   const { status, connect, disconnect, availableConnectTypes } = useWallet()
@@ -39,6 +40,7 @@ function App() {
           <h1>🌑 Stone The Crows 🦅</h1>
           <p>Only you can save the farmers precious crop</p>
         </div>
+        {status === WalletStatus.WALLET_CONNECTED && <WalletAddress />}
       </header>
       {/* If not connected, show the crow GIF! */}
       {status === WalletStatus.WALLET_NOT_CONNECTED && (

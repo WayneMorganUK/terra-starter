@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import WalletAddress from "../components/WalletAddress"
 
 const Guide = () => {
   return (
@@ -10,6 +11,7 @@ const Guide = () => {
             <p>Only you can save the farmers precious crop</p>
           </div>
         </Link>
+        <WalletAddress />
       </header>
 
       <div className="score-board-container">
