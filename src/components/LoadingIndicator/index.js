@@ -1,5 +1,5 @@
-import React from 'react';
-import './LoadingIndicator.css';
+import React from "react"
+import "./LoadingIndicator.css"
 
 const LoadingIndicator = () => {
   return (
@@ -9,7 +9,7 @@ const LoadingIndicator = () => {
       <div></div>
       <div></div>
     </div>
-  );
-};
+  )
+}
 
-export default LoadingIndicator;
+export default LoadingIndicator
