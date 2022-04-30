@@ -36,6 +36,7 @@ span {
   line-height: 20px;
   text-align: center;
   cursor: pointer;
+  transition: 0.4s;
 }
 
 .wallet-address {
@@ -53,8 +54,9 @@ span {
   background-image: linear-gradient(to right, #ff6e7f 0%, #f09819 100%);
 }
 
-.home-link {
-  padding-top: 30px;
+.header-titles:hover {
+  color: #d7da1d;
+  transition: 0.4s;
 }
 
 .App-link {
@@ -71,26 +73,24 @@ span {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  color: #431208;
-  transition: 0.8s;
+  color: #000000;
+  transition: 0.4s;
 }
 
 .cta-button:hover {
-  color: #d7da1d;
-  transition: 0.8s;
+  color: #f0ff00;
 }
 
 .connect-wallet-button:hover {
-  background-image: linear-gradient(to right, #2e2a4c 0%, #5163ec 100%);
+  background: #7321b1;
+  transition: 0.4s;
   animation: gradient-animation 4s ease infinite;
-  transition: 0.8s;
 }
 
 .connect-wallet-button {
-  background-image: linear-gradient(to right, #c267ee 0%, #51daec 100%);
+  background: #c267ee;
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
-  transition: 0.8s;
 }
 
 .footer-container {
