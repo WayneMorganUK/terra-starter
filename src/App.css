@@ -71,13 +71,26 @@ span {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  color: white;
+  color: #431208;
+  transition: 0.8s;
+}
+
+.cta-button:hover {
+  color: #d7da1d;
+  transition: 0.8s;
+}
+
+.connect-wallet-button:hover {
+  background-image: linear-gradient(to right, #2e2a4c 0%, #5163ec 100%);
+  animation: gradient-animation 4s ease infinite;
+  transition: 0.8s;
 }
 
 .connect-wallet-button {
   background-image: linear-gradient(to right, #c267ee 0%, #51daec 100%);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
+  transition: 0.8s;
 }
 
 .footer-container {
@@ -133,7 +146,7 @@ span {
 }
 
 .item-text:hover {
-  color: #b0d59f;
+  color: #771e84;
   text-decoration: none;
   cursor: pointer;
 }

@@ -18,7 +18,7 @@ const Guide = () => {
         <h3>How to play</h3>
 
         <div>
-          <span className="help">Click as many crows as you can within 15 seconds!</span>
+          <span className="help">Click as many crows as you can within 60 seconds!</span>
           <br />
           <span className="help">The smaller the crow the more points you are awarded!</span>
         </div>
